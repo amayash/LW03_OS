@@ -8,14 +8,6 @@ namespace LW03
         private List<Page> rom = new List<Page>();
         private Random random = new();
 
-        public string Keys()
-        {
-            String result = "";
-            foreach (var page in rom)
-                result += page.ID+" ";
-            return result;
-        }
-
         public void AddPage(Page page)
         {
             foreach (var elem in rom)
@@ -41,6 +33,13 @@ namespace LW03
                 return temp;
             }
             return new Page(-1, null, null);
+        }
+        public override string ToString()
+        {
+            String result = "";
+            foreach (var page in rom)
+                result += page.ID + " ";
+            return result;
         }
 
     }

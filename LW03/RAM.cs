@@ -76,7 +76,7 @@ namespace LW03
             }
         }
 
-        public void Print()
+        public void ToString()
         {
             Console.Write("(ОЗУ) ID: ");
             foreach (var elem in ram)
@@ -110,7 +110,7 @@ namespace LW03
         private int NRU(int id)
         {
             Console.WriteLine($"(ОЗУ) Переполнение на ID {id}.\n(ОЗУ) Вызван алгоритм замещения страниц.");
-            Console.WriteLine("(ПЗУ) ID: "+rom.Keys());
+            Console.WriteLine("(ПЗУ) ID: "+rom.ToString());
 
             foreach (KeyValuePair<int, Page> kvp in ram)
             {

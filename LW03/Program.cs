@@ -17,10 +17,10 @@ namespace LW03
             for (int i = 0; i < arr.Length; i++)
                 ram.AddPage(arr[i]);
 
-            Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count}\n");
+            Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count} \n");
             ram.AddPage(5);
             ram.AddPage(15);
-            Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count}\n");
+            Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count} \n");
             ram.AddPage(25);
             ram.AddPage(35);
             Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count} \n");
@@ -31,7 +31,7 @@ namespace LW03
             ram.AddPage(55);
             Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count} \n");
             ram.GetPage(5);
-            ram.Print();
+            ram.ToString();
             ram.GetPage(5);
 
             ram.AddPage(124);
@@ -39,7 +39,7 @@ namespace LW03
             ram.AddPage(126);
             ram.AddPage(126);
             ram.GetPage(126);
-            ram.Print();
+            ram.ToString();
 
             Console.ReadKey();
         }
