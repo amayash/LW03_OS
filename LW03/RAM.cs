@@ -83,7 +83,7 @@ namespace LW03
                 page = rom.GetPage(id);
                 if (page.ID < 0)
                 {
-                    Console.WriteLine($"(ОЗУ) Страница с ID: {id} не существует. Она будет создана.");
+                    Console.WriteLine($"(ОЗУ) Страничное прерывание. Страница с ID: {id} не существует. Она будет создана.");
                     AddPage(id, 1);
                     Page value = new Page(-1, null, null);
                     ram.TryGetValue(id, out value);
