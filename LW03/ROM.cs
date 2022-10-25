@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.Intrinsics.Arm;
+using System.Text;
 
 namespace LW03
 {
@@ -36,10 +37,10 @@ namespace LW03
         }
         public override string ToString()
         {
-            String result = "";
+            StringBuilder sb = new();
             foreach (var page in rom)
-                result += page.ID + " ";
-            return result;
+                sb.Append(page.ID + " ");
+            return sb.ToString();
         }
 
     }

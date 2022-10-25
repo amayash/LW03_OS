@@ -30,9 +30,10 @@ namespace LW03
             ram.AddPage(5);
             ram.AddPage(55);
             Console.WriteLine($"Текущая вместимость ОЗУ: {ram.Count} \n");
-            ram.GetPage(5);
             ram.ToString();
             ram.GetPage(5);
+            ram.GetPage(1111);
+
 
             ram.AddPage(124);
             ram.AddPage(125);

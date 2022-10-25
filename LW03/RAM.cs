@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace LW03
 {
@@ -7,7 +8,7 @@ namespace LW03
         private Dictionary<int, Page> ram;
         private readonly int maxSize = 16;
         private ROM rom = new();
-        Random random = new Random();
+        private Random random = new Random();
 
         public int Count { get { return ram.Count; } }
 
@@ -20,7 +21,7 @@ namespace LW03
         {
             if (ram.ContainsKey(id))
             {
-                Console.WriteLine($"(ОЗУ) Страница с ID: {id} уже существует");
+                Console.WriteLine($"(ОЗУ) Страница с ID: {id} уже существует.");
                 return;
             }
             int key = id;
@@ -34,23 +35,14 @@ namespace LW03
                 Console.WriteLine("(ОЗУ) Неправильная отработка.");
                 return;
             }
-            try
-            {
-                int temp = random.Next(200, 500);
-                ram.Add(temp, new Page(temp, random.Next(2), random.Next(2)));
-                Console.WriteLine($"(ОЗУ) Добавлена страница с ID: {id}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"(ОЗУ) Страница с ID: {id} уже существует");
-                return;
-            }
+            ram.Add(id, new Page(id, random.Next(2), random.Next(2)));
+            Console.WriteLine($"(ОЗУ) Добавлена страница с ID: {id}");
         }
         private void AddPage(int id, int used)
         {
             if (ram.ContainsKey(id))
             {
-                Console.WriteLine($"(ОЗУ) Страница с ID: {id} уже существует");
+                Console.WriteLine($"(ОЗУ) Страница с ID: {id} уже существует.");
                 return;
             }
             int key = id;
@@ -64,24 +56,18 @@ namespace LW03
                 Console.WriteLine("(ОЗУ) Неправильная отработка.");
                 return;
             }
-            try
-            {
-                ram.Add(id, new Page(id, used, random.Next(2)));
-                Console.WriteLine($"(ОЗУ) Добавлена страница с ID: {id}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"(ОЗУ) Страница с ID: {id} уже существует");
-                return;
-            }
+            ram.Add(id, new Page(id, used, random.Next(2)));
+            Console.WriteLine($"(ОЗУ) Добавлена страница с ID: {id}");
         }
 
-        public void ToString()
+        public override string ToString()
         {
-            Console.Write("(ОЗУ) ID: ");
+            StringBuilder sb = new();
+            sb.Append("(ОЗУ) ID: ");
             foreach (var elem in ram)
-                Console.Write(elem.Key+" ");
-            Console.WriteLine();
+                sb.Append(elem.Key+" ");
+            sb.Append("\n");
+            return sb.ToString();
         }
 
         public Page GetPage(int id)
@@ -114,31 +100,34 @@ namespace LW03
 
             foreach (KeyValuePair<int, Page> kvp in ram)
             {
-                if (kvp.Value.Used == 0)
+                if (kvp.Value.Used == 0 & kvp.Value.Modif == 0)
                 {
-                    if (kvp.Value.Modif == 0)
-                    {
-                        rom.AddPage(kvp.Value);
-                        return kvp.Key;
-                    }
-                    else
-                    {
-                        rom.AddPage(kvp.Value);
-                        return kvp.Key;
-                    }
+                    rom.AddPage(kvp.Value);
+                    return kvp.Key;
                 }
-                else
+            }
+            foreach (KeyValuePair<int, Page> kvp in ram)
+            {
+                if (kvp.Value.Used == 0 & kvp.Value.Modif == 1)
                 {
-                    if (kvp.Value.Modif == 0)
-                    {
-                        rom.AddPage(kvp.Value);
-                        return kvp.Key;
-                    }
-                    else
-                    {
-                        rom.AddPage(kvp.Value);
-                        return kvp.Key;
-                    }
+                    rom.AddPage(kvp.Value);
+                    return kvp.Key;
+                }
+            }
+            foreach (KeyValuePair<int, Page> kvp in ram)
+            {
+                if (kvp.Value.Used == 1 & kvp.Value.Modif == 0)
+                {
+                    rom.AddPage(kvp.Value);
+                    return kvp.Key;
+                }
+            }
+            foreach (KeyValuePair<int, Page> kvp in ram)
+            {
+                if (kvp.Value.Used == 1 & kvp.Value.Modif == 1)
+                {
+                    rom.AddPage(kvp.Value);
+                    return kvp.Key;
                 }
             }
             return -1;
